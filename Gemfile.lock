@@ -33,6 +33,7 @@ GEM
     awesome_nested_set (2.1.5)
       activerecord (>= 3.0.0)
     babosa (0.3.8)
+    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     builder (3.0.4)
     capistrano (2.13.5)
@@ -77,6 +78,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.4.0)
+    mysql2 (0.3.11)
     mysql2 (0.3.11-x86-mingw32)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -89,6 +91,7 @@ GEM
     paper_trail (2.6.4)
       activerecord (~> 3.0)
       railties (~> 3.0)
+    pg (0.14.1)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -186,6 +189,7 @@ GEM
     will_paginate (3.0.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
@@ -193,6 +197,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails (~> 2.0.0)
   mysql2 (~> 0.3.7)
+  pg
   rails (= 3.2.9)
   rdoc
   refinerycms (~> 2.0.0)
