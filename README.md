@@ -1,4 +1,2 @@
-enginyrddemo1
+my_refineycms
 =============
-
-test app

@@ -1,164 +1,248 @@
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (15.0ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (61.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.0ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateRefinerycmsAuthenticationSchema (20121205092550)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "refinery_roles_users" ("user_id" integer, "role_id" integer) 
+  [1m[36m (1.0ms)[0m  [1mCREATE INDEX "index_refinery_roles_users_on_role_id_and_user_id" ON "refinery_roles_users" ("role_id", "user_id")[0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_refinery_roles_users_on_user_id_and_role_id" ON "refinery_roles_users" ("user_id", "role_id")
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "refinery_roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255)) [0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "refinery_user_plugins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "name" varchar(255), "position" integer) 
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_refinery_user_plugins_on_name" ON "refinery_user_plugins" ("name")[0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX "index_refinery_user_plugins_on_user_id_and_name" ON "refinery_user_plugins" ("user_id", "name")
+  [1m[36m (0.0ms)[0m  [1mCREATE TABLE "refinery_users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255) NOT NULL, "email" varchar(255) NOT NULL, "encrypted_password" varchar(255) NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "sign_in_count" integer, "remember_created_at" datetime, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_refinery_users_on_id" ON "refinery_users" ("id")
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121205092550')[0m
+  [1m[35m (12.0ms)[0m  commit transaction
+Migrating to CreateRefinerycmsImagesSchema (20121205092551)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "refinery_images" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "image_mime_type" varchar(255), "image_name" varchar(255), "image_size" integer, "image_width" integer, "image_height" integer, "image_uid" varchar(255), "image_ext" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121205092551')[0m
+  [1m[35m (19.0ms)[0m  commit transaction
+Migrating to CreateRefinerycmsResourcesSchema (20121205092552)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "refinery_resources" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "file_mime_type" varchar(255), "file_name" varchar(255), "file_size" integer, "file_uid" varchar(255), "file_ext" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121205092552')[0m
+  [1m[35m (17.0ms)[0m  commit transaction
+Migrating to CreateRefinerycmsPagesSchema (20121205092553)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "refinery_page_parts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "refinery_page_id" integer, "title" varchar(255), "body" text, "position" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_refinery_page_parts_on_id" ON "refinery_page_parts" ("id")[0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_refinery_page_parts_on_refinery_page_id" ON "refinery_page_parts" ("refinery_page_id")
+  [1m[36m (0.0ms)[0m  [1mCREATE TABLE "refinery_pages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "parent_id" integer, "path" varchar(255), "slug" varchar(255), "show_in_menu" boolean DEFAULT 't', "link_url" varchar(255), "menu_match" varchar(255), "deletable" boolean DEFAULT 't', "draft" boolean DEFAULT 'f', "skip_to_first_child" boolean DEFAULT 'f', "lft" integer, "rgt" integer, "depth" integer, "view_template" varchar(255), "layout_template" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_refinery_pages_on_depth" ON "refinery_pages" ("depth")
+  [1m[36m (1.0ms)[0m  [1mCREATE INDEX "index_refinery_pages_on_id" ON "refinery_pages" ("id")[0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_refinery_pages_on_lft" ON "refinery_pages" ("lft")
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_refinery_pages_on_parent_id" ON "refinery_pages" ("parent_id")[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_refinery_pages_on_rgt" ON "refinery_pages" ("rgt")
+  [1m[36m (0.0ms)[0m  [1mCREATE TABLE "refinery_page_part_translations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "refinery_page_part_id" integer, "locale" varchar(255), "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_f9716c4215584edbca2557e32706a5ae084a15ef" ON "refinery_page_part_translations" ("refinery_page_part_id")
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_refinery_page_part_translations_on_locale" ON "refinery_page_part_translations" ("locale")[0m
+  [1m[35m (47.0ms)[0m  CREATE TABLE "refinery_page_translations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "refinery_page_id" integer, "locale" varchar(255), "title" varchar(255), "custom_slug" varchar(255), "menu_title" varchar(255), "slug" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_d079468f88bff1c6ea81573a0d019ba8bf5c2902" ON "refinery_page_translations" ("refinery_page_id")[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_refinery_page_translations_on_locale" ON "refinery_page_translations" ("locale")
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121205092553')[0m
+  [1m[35m (14.0ms)[0m  commit transaction
+Migrating to CreateSeoMeta (20121205092554)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "seo_meta" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "seo_meta_id" integer, "seo_meta_type" varchar(255), "browser_title" varchar(255), "meta_keywords" varchar(255), "meta_description" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mCREATE INDEX "index_seo_meta_on_id" ON "seo_meta" ("id")[0m
+  [1m[35m (0.0ms)[0m  CREATE INDEX "index_seo_meta_on_seo_meta_id_and_seo_meta_type" ON "seo_meta" ("seo_meta_id", "seo_meta_type")
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121205092554')[0m
+  [1m[35m (7.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
 Connecting to database specified by database.yml
-  [1m[36m (26.9ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
-  [1m[35m (115.4ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
-  [1m[36m (1.3ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
-Migrating to CreateUsers (20121206085756)
-  [1m[35m (72.9ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `email` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
-  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20121206085756')[0m
-  [1m[35m (0.2ms)[0m  SELECT `schema_migrations`.`version` FROM `schema_migrations` 
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "refinery_pages" WHERE "refinery_pages"."menu_match" = '^/$'
+  [1m[36mRefinery::Page::Translation Load (1.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" IS NULL AND "refinery_page_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mRefinery::Page Load (1.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."parent_id" IS NULL AND ("slug" = 'home' OR "slug" LIKE 'home--%'ESCAPE '\') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+  [1m[35mSQL (75.0ms)[0m  INSERT INTO "refinery_page_translations" ("created_at", "custom_slug", "locale", "menu_title", "refinery_page_id", "slug", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["custom_slug", nil], ["locale", "en"], ["menu_title", nil], ["refinery_page_id", nil], ["slug", nil], ["title", nil], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "seo_meta" ("browser_title", "created_at", "meta_description", "meta_keywords", "seo_meta_id", "seo_meta_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)  [["browser_title", nil], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["meta_description", nil], ["meta_keywords", nil], ["seo_meta_id", 1], ["seo_meta_type", "Refinery::Page::Translation"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" ORDER BY "refinery_pages"."rgt" desc LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "refinery_pages" ("created_at", "deletable", "depth", "draft", "layout_template", "lft", "link_url", "menu_match", "parent_id", "path", "rgt", "show_in_menu", "skip_to_first_child", "slug", "updated_at", "view_template") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["deletable", false], ["depth", nil], ["draft", false], ["layout_template", nil], ["lft", 1], ["link_url", "/"], ["menu_match", "^/$"], ["parent_id", nil], ["path", nil], ["rgt", 2], ["show_in_menu", true], ["skip_to_first_child", false], ["slug", "home"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["view_template", nil]]
+  [1m[36m (2.0ms)[0m  [1mUPDATE "refinery_page_translations" SET "refinery_page_id" = 1, "updated_at" = '2012-12-05 09:27:30.557437' WHERE "refinery_page_translations"."id" = 1[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 1 AND "refinery_page_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  UPDATE "refinery_page_translations" SET "title" = 'Home', "slug" = 'home', "updated_at" = '2012-12-05 09:27:30.564437' WHERE "refinery_page_translations"."id" = 1
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE ("refinery_pages"."id" >= 0) ORDER BY "refinery_pages"."id" ASC LIMIT 500
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 1[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.0ms)[0m  UPDATE "refinery_pages" SET "depth" = 0 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 1 ORDER BY "refinery_pages"."lft")
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC
+  [1m[36m (9.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IS NULL AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "refinery_page_parts" ("body", "created_at", "position", "refinery_page_id", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["body", "<p>Welcome to our site. This is just a place holder page while we gather our content.</p>"], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["position", 0], ["refinery_page_id", 1], ["title", "Body"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "refinery_page_part_translations" ("body", "created_at", "locale", "refinery_page_part_id", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["body", nil], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["locale", "en"], ["refinery_page_part_id", 1], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" = 1 AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mUPDATE "refinery_page_part_translations" SET "body" = '<p>Welcome to our site. This is just a place holder page while we gather our content.</p>', "updated_at" = '2012-12-05 09:27:30.771437' WHERE "refinery_page_part_translations"."id" = 1[0m
+  [1m[35mRefinery::PagePart::Translation Load (1.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (5.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IS NULL AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "refinery_page_parts" ("body", "created_at", "position", "refinery_page_id", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["body", "<p>This is another block of content over here.</p>"], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["position", 1], ["refinery_page_id", 1], ["title", "Side Body"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "refinery_page_part_translations" ("body", "created_at", "locale", "refinery_page_part_id", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["body", nil], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["locale", "en"], ["refinery_page_part_id", 2], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" = 2 AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mUPDATE "refinery_page_part_translations" SET "body" = '<p>This is another block of content over here.</p>', "updated_at" = '2012-12-05 09:27:30.924437' WHERE "refinery_page_part_translations"."id" = 2[0m
+  [1m[35mRefinery::PagePart::Translation Load (1.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (21.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mRefinery::Page::Translation Load (1.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" IS NULL AND "refinery_page_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."parent_id" = 1 AND ("slug" = 'page-not-found' OR "slug" LIKE 'page-not-found--%'ESCAPE '\') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_page_translations" ("created_at", "custom_slug", "locale", "menu_title", "refinery_page_id", "slug", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["custom_slug", nil], ["locale", "en"], ["menu_title", nil], ["refinery_page_id", nil], ["slug", nil], ["title", nil], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 2 LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "seo_meta" ("browser_title", "created_at", "meta_description", "meta_keywords", "seo_meta_id", "seo_meta_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["browser_title", nil], ["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["meta_description", nil], ["meta_keywords", nil], ["seo_meta_id", 2], ["seo_meta_type", "Refinery::Page::Translation"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00]]
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" ORDER BY "refinery_pages"."rgt" desc LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_pages" ("created_at", "deletable", "depth", "draft", "layout_template", "lft", "link_url", "menu_match", "parent_id", "path", "rgt", "show_in_menu", "skip_to_first_child", "slug", "updated_at", "view_template") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["deletable", false], ["depth", nil], ["draft", false], ["layout_template", nil], ["lft", 3], ["link_url", nil], ["menu_match", "^/404$"], ["parent_id", 1], ["path", nil], ["rgt", 4], ["show_in_menu", false], ["skip_to_first_child", false], ["slug", "page-not-found"], ["updated_at", Wed, 05 Dec 2012 09:27:30 UTC +00:00], ["view_template", nil]]
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_page_translations" SET "refinery_page_id" = 2, "updated_at" = '2012-12-05 09:27:30.988437' WHERE "refinery_page_translations"."id" = 2
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 2 AND "refinery_page_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 2 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "refinery_page_translations" SET "title" = 'Page not found', "slug" = 'page-not-found', "updated_at" = '2012-12-05 09:27:30.994437' WHERE "refinery_page_translations"."id" = 2[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 2 ORDER BY position ASC[0m
+  [1m[35mRefinery::Page Load (1.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? ORDER BY "refinery_pages"."lft" LIMIT 1  [["id", 1]]
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages"."lft", "refinery_pages"."rgt", "refinery_pages"."parent_id" FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mSQL (0.0ms)[0m  UPDATE "refinery_pages" SET "lft" = CASE WHEN "lft" BETWEEN 2 AND 2 THEN "lft" + 4 - 2 WHEN "lft" BETWEEN 3 AND 4 THEN "lft" + 2 - 3 ELSE "lft" END, "rgt" = CASE WHEN "rgt" BETWEEN 2 AND 2 THEN "rgt" + 4 - 2 WHEN "rgt" BETWEEN 3 AND 4 THEN "rgt" + 2 - 3 ELSE "rgt" END, "parent_id" = CASE WHEN id = 2 THEN 1 ELSE "parent_id" END WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" ORDER BY "refinery_pages"."lft")
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages"."lft", "refinery_pages"."rgt", "refinery_pages"."parent_id" FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::Page Load (1.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "refinery_pages" SET "depth" = 1 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 2 ORDER BY "refinery_pages"."lft")
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE ("refinery_pages"."lft" >= 2 AND "refinery_pages"."lft" < 3) AND ("refinery_pages".id != 2) ORDER BY "refinery_pages"."lft"
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages"."lft", "refinery_pages"."rgt", "refinery_pages"."parent_id" FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)[0m
+  [1m[35mSQL (0.0ms)[0m  UPDATE "refinery_pages" SET "depth" = 1 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 2 ORDER BY "refinery_pages"."lft")
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 2 ORDER BY position ASC[0m
+  [1m[35m (5.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IS NULL AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_page_parts" ("body", "created_at", "position", "refinery_page_id", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["body", "<h2>Sorry, there was a problem...</h2><p>The page you requested was not found.</p><p><a href='/'>Return to the home page</a></p>"], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["position", 0], ["refinery_page_id", 2], ["title", "Body"], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "refinery_page_part_translations" ("body", "created_at", "locale", "refinery_page_part_id", "updated_at") VALUES (?, ?, ?, ?, ?)  [["body", nil], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["locale", "en"], ["refinery_page_part_id", 3], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[36mRefinery::PagePart::Translation Load (1.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" = 3 AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_page_part_translations" SET "body" = '<h2>Sorry, there was a problem...</h2><p>The page you requested was not found.</p><p><a href=''/''>Return to the home page</a></p>', "updated_at" = '2012-12-05 09:27:31.081437' WHERE "refinery_page_part_translations"."id" = 3
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35m (6.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "refinery_pages" INNER JOIN "refinery_page_translations" ON "refinery_page_translations"."refinery_page_id" = "refinery_pages"."id" WHERE "refinery_page_translations"."locale" = 'en' AND "refinery_page_translations"."title" = 'About'[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" IS NULL AND "refinery_page_translations"."locale" = 'en' LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."parent_id" IS NULL AND ("slug" = 'about' OR "slug" LIKE 'about--%'ESCAPE '\') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_page_translations" ("created_at", "custom_slug", "locale", "menu_title", "refinery_page_id", "slug", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["custom_slug", nil], ["locale", "en"], ["menu_title", nil], ["refinery_page_id", nil], ["slug", nil], ["title", nil], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 3 LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "seo_meta" ("browser_title", "created_at", "meta_description", "meta_keywords", "seo_meta_id", "seo_meta_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["browser_title", nil], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["meta_description", nil], ["meta_keywords", nil], ["seo_meta_id", 3], ["seo_meta_type", "Refinery::Page::Translation"], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" ORDER BY "refinery_pages"."rgt" desc LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_pages" ("created_at", "deletable", "depth", "draft", "layout_template", "lft", "link_url", "menu_match", "parent_id", "path", "rgt", "show_in_menu", "skip_to_first_child", "slug", "updated_at", "view_template") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["deletable", true], ["depth", nil], ["draft", false], ["layout_template", nil], ["lft", 5], ["link_url", nil], ["menu_match", nil], ["parent_id", nil], ["path", nil], ["rgt", 6], ["show_in_menu", true], ["skip_to_first_child", false], ["slug", "about"], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["view_template", nil]]
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_page_translations" SET "refinery_page_id" = 3, "updated_at" = '2012-12-05 09:27:31.307437' WHERE "refinery_page_translations"."id" = 3
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 3 AND "refinery_page_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 3 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mUPDATE "refinery_page_translations" SET "title" = 'About', "slug" = 'about', "updated_at" = '2012-12-05 09:27:31.312437' WHERE "refinery_page_translations"."id" = 3[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 3 ORDER BY position ASC[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mSQL (0.0ms)[0m  [1mUPDATE "refinery_pages" SET "depth" = 0 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 3 ORDER BY "refinery_pages"."lft")[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 3 ORDER BY position ASC[0m
+  [1m[35m (6.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::PagePart::Translation Load (1.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IS NULL AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_page_parts" ("body", "created_at", "position", "refinery_page_id", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["body", "<p>This is just a standard text page example. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin metus dolor, hendrerit sit amet, aliquet nec, posuere sed, purus. Nullam et velit iaculis odio sagittis placerat. Duis metus tellus, pellentesque ut, luctus id, egestas a, lorem. Praesent vitae mauris. Aliquam sed nulla. Sed id nunc vitae leo suscipit viverra. Proin at leo ut lacus consequat rhoncus. In hac habitasse platea dictumst. Nunc quis tortor sed libero hendrerit dapibus.\n\nInteger interdum purus id erat. Duis nec velit vitae dolor mattis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse pellentesque dignissim lacus. Nulla semper euismod arcu. Suspendisse egestas, erat a consectetur dapibus, felis orci cursus eros, et sollicitudin purus urna et metus. Integer eget est sed nunc euismod vestibulum. Integer nulla dui, tristique in, euismod et, interdum imperdiet, enim. Mauris at lectus. Sed egestas tortor nec mi.</p>"], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["position", 0], ["refinery_page_id", 3], ["title", "Body"], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "refinery_page_part_translations" ("body", "created_at", "locale", "refinery_page_part_id", "updated_at") VALUES (?, ?, ?, ?, ?)  [["body", nil], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["locale", "en"], ["refinery_page_part_id", 4], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" = 4 AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_page_part_translations" SET "body" = '<p>This is just a standard text page example. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin metus dolor, hendrerit sit amet, aliquet nec, posuere sed, purus. Nullam et velit iaculis odio sagittis placerat. Duis metus tellus, pellentesque ut, luctus id, egestas a, lorem. Praesent vitae mauris. Aliquam sed nulla. Sed id nunc vitae leo suscipit viverra. Proin at leo ut lacus consequat rhoncus. In hac habitasse platea dictumst. Nunc quis tortor sed libero hendrerit dapibus.
 
-
-Started GET "/assets/rails.png" for 127.0.0.1 at 2012-12-06 14:28:55 +0530
+Integer interdum purus id erat. Duis nec velit vitae dolor mattis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse pellentesque dignissim lacus. Nulla semper euismod arcu. Suspendisse egestas, erat a consectetur dapibus, felis orci cursus eros, et sollicitudin purus urna et metus. Integer eget est sed nunc euismod vestibulum. Integer nulla dui, tristique in, euismod et, interdum imperdiet, enim. Mauris at lectus. Sed egestas tortor nec mi.</p>', "updated_at" = '2012-12-05 09:27:31.381437' WHERE "refinery_page_part_translations"."id" = 4
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35m (10.0ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::PagePart::Translation Load (1.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IS NULL AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "refinery_page_parts" ("body", "created_at", "position", "refinery_page_id", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["body", "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla nisi a elit. Duis ultricies orci ut arcu. Ut ac nibh. Duis blandit rhoncus magna. Pellentesque semper risus ut magna. Etiam pulvinar tellus eget diam. Morbi blandit. Donec pulvinar mauris at ligula. Sed pellentesque, ipsum id congue molestie, lectus risus egestas pede, ac viverra diam lacus ac urna. Aenean elit.</p>"], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["position", 1], ["refinery_page_id", 3], ["title", "Side Body"], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "refinery_page_part_translations" ("body", "created_at", "locale", "refinery_page_part_id", "updated_at") VALUES (?, ?, ?, ?, ?)  [["body", nil], ["created_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00], ["locale", "en"], ["refinery_page_part_id", 5], ["updated_at", Wed, 05 Dec 2012 09:27:31 UTC +00:00]]
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" = 5 AND "refinery_page_part_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_page_part_translations" SET "body" = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla nisi a elit. Duis ultricies orci ut arcu. Ut ac nibh. Duis blandit rhoncus magna. Pellentesque semper risus ut magna. Etiam pulvinar tellus eget diam. Morbi blandit. Donec pulvinar mauris at ligula. Sed pellentesque, ipsum id congue molestie, lectus risus egestas pede, ac viverra diam lacus ac urna. Aenean elit.</p>', "updated_at" = '2012-12-05 09:27:31.439437' WHERE "refinery_page_part_translations"."id" = 5
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35m (13.0ms)[0m  commit transaction
+  [1m[36mRefinery::Page Load (1.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" INNER JOIN "refinery_page_translations" ON "refinery_page_translations"."refinery_page_id" = "refinery_pages"."id" WHERE "refinery_page_translations"."locale" = 'en' AND "refinery_page_translations"."title" = 'Home'[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mRefinery::Page::Translation Load (1.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 1[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1
+  [1m[36mRefinery::Page Load (1.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 1
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1[0m
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (1, 2)[0m
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (1, 2)[0m
+  [1m[35m (1.0ms)[0m  UPDATE "refinery_pages" SET "slug" = 'home', "updated_at" = '2012-12-05 09:27:31.776437' WHERE "refinery_pages"."id" = 1
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 1 AND "refinery_page_translations"."locale" = 'en' LIMIT 1[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 1 LIMIT 1
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (2.0ms)[0m  [1mUPDATE "refinery_pages" SET "depth" = 0 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 1 ORDER BY "refinery_pages"."lft")[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 1 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (1, 2)
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (5.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" INNER JOIN "refinery_page_translations" ON "refinery_page_translations"."refinery_page_id" = "refinery_pages"."id" WHERE "refinery_page_translations"."locale" = 'en' AND "refinery_page_translations"."title" = 'Page not found'
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 2
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 2 LIMIT 1[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mRefinery::Page::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 2[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 2 LIMIT 1
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 2 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (3)
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 2 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (3)
+  [1m[36m (1.0ms)[0m  [1mUPDATE "refinery_pages" SET "slug" = 'page-not-found', "updated_at" = '2012-12-05 09:27:31.917437' WHERE "refinery_pages"."id" = 2[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 2 AND "refinery_page_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 2 LIMIT 1[0m
+  [1m[35mRefinery::Page::Translation Load (1.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)
+  [1m[36mSQL (1.0ms)[0m  [1mUPDATE "refinery_pages" SET "depth" = 1 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 2 ORDER BY "refinery_pages"."lft")[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "refinery_pages" WHERE ("refinery_pages"."lft" <= 2 AND "refinery_pages"."rgt" >= 3) AND ("refinery_pages".id != 2)
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 2 ORDER BY position ASC
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (3)[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (5.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" INNER JOIN "refinery_page_translations" ON "refinery_page_translations"."refinery_page_id" = "refinery_pages"."id" WHERE "refinery_page_translations"."locale" = 'en' AND "refinery_page_translations"."title" = 'About'
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 3
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 3 LIMIT 1[0m
+  [1m[35mRefinery::Page Load (0.0ms)[0m  SELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mRefinery::Page::Translation Load (1.0ms)[0m  [1mSELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 3[0m
+  [1m[35mSeoMetum Load (0.0ms)[0m  SELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 3 LIMIT 1
+  [1m[36mRefinery::PagePart Load (0.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 3 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (4, 5)
+  [1m[36mRefinery::PagePart Load (1.0ms)[0m  [1mSELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 3 ORDER BY position ASC[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (4, 5)
+  [1m[36m (1.0ms)[0m  [1mUPDATE "refinery_pages" SET "slug" = 'about', "updated_at" = '2012-12-05 09:27:32.661437' WHERE "refinery_pages"."id" = 3[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."refinery_page_id" = 3 AND "refinery_page_translations"."locale" = 'en' LIMIT 1
+  [1m[36mSeoMetum Load (0.0ms)[0m  [1mSELECT "seo_meta".* FROM "seo_meta" WHERE "seo_meta"."seo_meta_type" = 'Refinery::Page::Translation' AND "seo_meta"."seo_meta_id" = 3 LIMIT 1[0m
+  [1m[35mRefinery::Page::Translation Load (0.0ms)[0m  SELECT "refinery_page_translations".* FROM "refinery_page_translations" WHERE "refinery_page_translations"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mSQL (1.0ms)[0m  UPDATE "refinery_pages" SET "depth" = 0 WHERE "refinery_pages"."id" IN (SELECT "refinery_pages"."id" FROM "refinery_pages" WHERE "refinery_pages"."id" = 3 ORDER BY "refinery_pages"."lft")
+  [1m[36mRefinery::Page Load (0.0ms)[0m  [1mSELECT "refinery_pages".* FROM "refinery_pages" WHERE "refinery_pages"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mRefinery::PagePart Load (0.0ms)[0m  SELECT "refinery_page_parts".* FROM "refinery_page_parts" WHERE "refinery_page_parts"."refinery_page_id" = 3 ORDER BY position ASC
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."refinery_page_part_id" IN (4, 5)[0m
+  [1m[35mRefinery::PagePart::Translation Load (0.0ms)[0m  SELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mRefinery::PagePart::Translation Load (0.0ms)[0m  [1mSELECT "refinery_page_part_translations".* FROM "refinery_page_part_translations" WHERE "refinery_page_part_translations"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35m (6.0ms)[0m  commit transaction
 Connecting to database specified by database.yml
-Served asset /rails.png - 200 OK (5ms)
-
-
-Started GET "/user" for 127.0.0.1 at 2012-12-06 14:29:01 +0530
-
-ActionController::RoutingError (No route matches [GET] "/user"):
-  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
-  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
-  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
-  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
-  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
-  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
-  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
-  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
-  rack (1.4.1) lib/rack/lock.rb:15:in `call'
-  actionpack (3.2.8) lib/action_dispatch/middleware/static.rb:62:in `call'
-  railties (3.2.8) lib/rails/engine.rb:479:in `call'
-  railties (3.2.8) lib/rails/application.rb:223:in `call'
-  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
-  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
-  rack (1.4.1) lib/rack/handler/webrick.rb:59:in `service'
-  /Users/hindavi/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
-  /Users/hindavi/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
-  /Users/hindavi/.rvm/rubies/ruby-1.9.3-p194/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
-
-
-  Rendered /Users/hindavi/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (9.8ms)
-
-
-Started GET "/users" for 127.0.0.1 at 2012-12-06 14:29:21 +0530
-Processing by UsersController#index as HTML
-  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` [0m
-  Rendered users/index.html.erb within layouts/application (1.2ms)
-Compiled scaffolds.css  (33ms)  (pid 3071)
-Compiled users.css  (1ms)  (pid 3071)
-Compiled application.css  (51ms)  (pid 3071)
-Compiled jquery.js  (2ms)  (pid 3071)
-Compiled jquery_ujs.js  (0ms)  (pid 3071)
-Compiled users.js  (216ms)  (pid 3071)
-Compiled application.js  (287ms)  (pid 3071)
-Completed 200 OK in 467ms (Views: 426.7ms | ActiveRecord: 2.6ms)
-
-
-Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /application.css - 200 OK (4ms)
-
-
-Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /users.css - 200 OK (1ms)
-
-
-Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /users.js - 304 Not Modified (1ms)
-
-
-Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /jquery.js - 304 Not Modified (2ms)
-
-
-Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /scaffolds.css - 304 Not Modified (1ms)
-
-
-Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /jquery_ujs.js - 304 Not Modified (2ms)
-
-
-Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:22 +0530
-Served asset /application.js - 200 OK (5ms)
-
-
-Started GET "/users/new" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Processing by UsersController#new as HTML
-  Rendered users/_form.html.erb (28.3ms)
-  Rendered users/new.html.erb within layouts/application (43.8ms)
-Completed 200 OK in 81ms (Views: 49.8ms | ActiveRecord: 0.0ms)
-
-
-Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /scaffolds.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /application.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /jquery_ujs.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /users.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /users.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /jquery.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:24 +0530
-Served asset /application.js - 304 Not Modified (0ms)
-
-
-Started POST "/users" for 127.0.0.1 at 2012-12-06 14:29:32 +0530
-Processing by UsersController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FaL/vCIcC06xa6ePqI0Y8E5kyM32RiPuGB89vekVreI=", "user"=>{"name"=>"sdjkfhsk", "email"=>"aksjdlak"}, "commit"=>"Create User"}
-  [1m[35m (0.1ms)[0m  BEGIN
-  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`created_at`, `email`, `name`, `updated_at`) VALUES ('2012-12-06 08:59:32', 'aksjdlak', 'sdjkfhsk', '2012-12-06 08:59:32')[0m
-  [1m[35m (0.7ms)[0m  COMMIT
-Redirected to http://localhost:3001/users/1
-Completed 302 Found in 36ms (ActiveRecord: 1.2ms)
-
-
-Started GET "/users/1" for 127.0.0.1 at 2012-12-06 14:29:32 +0530
-Processing by UsersController#show as HTML
-  Parameters: {"id"=>"1"}
-  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
-  Rendered users/show.html.erb within layouts/application (1.3ms)
-Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 0.3ms)
-
-
-Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:32 +0530
-Served asset /application.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:32 +0530
-Served asset /scaffolds.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-12-06 14:29:32 +0530
-Served asset /users.css - 304 Not Modified (0ms)
-
-
-Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:33 +0530
-Served asset /jquery_ujs.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:33 +0530
-Served asset /jquery.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:33 +0530
-Served asset /application.js - 304 Not Modified (0ms)
-
-
-Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-12-06 14:29:33 +0530
-Served asset /users.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml

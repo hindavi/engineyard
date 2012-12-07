@@ -5,6 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create!(:name=>"Diga",:email=>"diga@diga.com")
-User.create!(:name=>"Diga11",:email=>"diga11@diga.com")
-User.create!(:name=>"Diga22",:email=>"diga22@diga.com")
+
+# Added by Refinery CMS Pages extension
+Refinery::Pages::Engine.load_seed

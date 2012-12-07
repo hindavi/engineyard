@@ -1,13 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-gem 'pg'
-gem 'therubyracer', :platform => :ruby
+#gem 'sqlite3'
+
+gem 'mysql2', '~> 0.3.7'
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -20,7 +22,14 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.0.0'
+
+group :development do
+  gem "capistrano"
+  gem "rdoc"
+end
+
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -36,3 +45,13 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+# Refinery CMS
+gem 'refinerycms', '~> 2.0.0'
+
+# Specify additional Refinery CMS Extensions here (all optional):
+gem 'refinerycms-i18n', '~> 2.0.0'
+#  gem 'refinerycms-blog', '~> 2.0.0'
+#  gem 'refinerycms-inquiries', '~> 2.0.0'
+#  gem 'refinerycms-search', '~> 2.0.0'
+#  gem 'refinerycms-page-images', '~> 2.0.0'
