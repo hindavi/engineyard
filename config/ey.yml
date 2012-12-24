@@ -25,4 +25,4 @@
 environments:
   engineyard_production:
     migrate: true 
-    migration_command: rake db:setup
+    migration_command: rake db:migrate
